@@ -5,17 +5,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public BulletPool bulletPool;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private Camera mainCamera;
 
     private float yPos = 4;
+    private bool canShoot = true;
 
+    public BulletPool bulletPool;
+    [SerializeField] private GameObject bullet;
     public Queue<GameObject> Bullets = new Queue<GameObject>();
 
     private void Start()
     {
-        Cursor.visible = false;   
+        Cursor.visible = false;
     }
 
     void Update()
@@ -44,11 +46,19 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && canShoot == true)
         {
-            var Bullet = bulletPool.GetPoolObject(0);
-            Bullet.transform.position = attackPoint.transform.position;
-            Bullets.Enqueue(Bullet);
+            bullet = bulletPool.GetPoolObject(0);
+            bullet.transform.position = attackPoint.transform.position;
+            Bullets.Enqueue(bullet);
+            canShoot = false;
+            StartCoroutine(shootDelay());
         }
+    }
+
+    IEnumerator shootDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canShoot = true;
     }
 }
