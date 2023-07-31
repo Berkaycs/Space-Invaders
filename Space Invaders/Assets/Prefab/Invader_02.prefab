@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 05cc7173c6b45944fa69ba096d8be317, type: 3}
     - target: {fileID: 8653195682809767580, guid: 1db0014c04d285047b2a0b91b8b83f77, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8653195682809767580, guid: 1db0014c04d285047b2a0b91b8b83f77, type: 3}
       propertyPath: m_LocalPosition.x
@@ -60,8 +60,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5235788943346860145, guid: 1db0014c04d285047b2a0b91b8b83f77, type: 3}
+    - {fileID: 260226538367306810, guid: 1db0014c04d285047b2a0b91b8b83f77, type: 3}
+    - {fileID: -3509795721394334169, guid: 1db0014c04d285047b2a0b91b8b83f77, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1396156240164388109, guid: 1db0014c04d285047b2a0b91b8b83f77, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3217233359374623584}
   m_SourcePrefab: {fileID: 100100000, guid: 1db0014c04d285047b2a0b91b8b83f77, type: 3}
+--- !u!1 &14242133770924461 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1396156240164388109, guid: 1db0014c04d285047b2a0b91b8b83f77, type: 3}
+  m_PrefabInstance: {fileID: 1392383665911303328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &-3217233359374623584
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 14242133770924461}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

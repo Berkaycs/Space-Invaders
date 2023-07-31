@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 8646682401594790787}
   - component: {fileID: 8127960713220156923}
   - component: {fileID: 861922759215002149}
+  - component: {fileID: 6110980076512381200}
   m_Layer: 0
   m_Name: bullet1
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8646682401594790787
 SpriteRenderer:
@@ -145,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 3.5597765, y: 1.2772707}
+  m_Offset: {x: 3.5597763, y: 1.3357308}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -156,5 +157,18 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20.022747, y: 1.8414328}
+  m_Size: {x: 20.022747, y: 2.6598701}
   m_EdgeRadius: 0
+--- !u!114 &6110980076512381200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3818634463840578523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 293ee6cd302dcd040adc75d44c62e243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyController: {fileID: 0}
