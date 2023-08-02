@@ -5,11 +5,15 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     private float speed = 15;
-    public EnemyController enemyController;
 
     void Update()
     {
         Move();
+
+        if (transform.position.x < -14)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Move()
@@ -18,15 +22,4 @@ public class EnemyBullet : MonoBehaviour
         temp.x -= speed * Time.deltaTime;
         transform.position = temp;
     }
-    /*
-    void Reuse()
-    {
-        if (gameObject.transform.position.x < -14)
-        {
-            if (enemyController.Bullets.Count == 0) return;
-            enemyController.Bullets.Dequeue();
-            enemyController.bulletPool.SetPoolObject(gameObject, 1);
-        }
-    }
-    */
 }

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private AudioManager audioManager;
     public GameOverScreen gameOverScreen;
+    private EnemySpawner enemySpawner;
 
     public CharacterDatabase characterDB;
     public SpriteRenderer artworkSprite;
@@ -17,6 +18,9 @@ public class PlayerController : MonoBehaviour
 
     private float yPos = 4;
     private bool canShoot = true;
+    private bool isLimited = false;
+    public bool isAsteroid = false;
+    public bool isPowerUp = false;
 
     private BulletPool bulletPool;
     private GameObject bullet;
@@ -26,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         bulletPool = GameObject.Find("PoolManager").GetComponent<BulletPool>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        enemySpawner = GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>();
         Cursor.visible = false;
 
         if (!PlayerPrefs.HasKey("selectedOption"))
@@ -91,8 +96,38 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator shootDelay()
     {
-        yield return new WaitForSeconds(0.5f);
-        canShoot = true;
+        /*
+        if (isLimited == true)
+        {
+            canShoot = false;
+            yield return new WaitForSeconds(5f);
+            canShoot = true;
+            isLimited = false;
+        }
+        */
+
+        if (isLimited == false)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            if (isLimited == true)
+            {
+                canShoot = false;
+            }
+
+            else
+            {
+                canShoot = true;
+            }
+        }
+
+        if (isLimited == true)
+        {
+            yield return new WaitForSeconds(5f);
+            canShoot = true;
+            isLimited = false;
+        }
+        
     }
 
     IEnumerator WaitForOver()
@@ -109,6 +144,18 @@ public class PlayerController : MonoBehaviour
             WaitForOver();
             audioManager.playGameOver();
             gameOverScreen.gameOverScreen();
+        }
+
+        if (collision.CompareTag("Limit"))
+        {
+            isLimited = true;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("Asteroid"))
+        {
+            isAsteroid = true;
+            Destroy(collision.gameObject);
         }
     }
 }

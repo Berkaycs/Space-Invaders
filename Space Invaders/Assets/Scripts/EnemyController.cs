@@ -10,14 +10,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private ParticleSystem explosionParticle;
     private AudioManager audioManager;
 
-    private GameObject bullet;
-    public BulletPool bulletPool;
-
-    public Queue<GameObject> Bullets = new Queue<GameObject>();
+    public GameObject bullet;
 
     private void Start()
     {
-        bulletPool = GameObject.Find("PoolManager").GetComponent<BulletPool>();
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
@@ -50,9 +46,7 @@ public class EnemyController : MonoBehaviour
         if (canShoot == true)
         {
             audioManager.playBulletEnemy();
-            bullet = bulletPool.GetPoolObject(1);
-            bullet.transform.position = attackPoint.transform.position;
-            Bullets.Enqueue(bullet);
+            Instantiate(bullet, attackPoint.transform.position, bullet.transform.rotation);
             canShoot = false;
             StartCoroutine(shootDelay());
         }
@@ -60,7 +54,7 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator shootDelay()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.8f);
         canShoot = true;
     }
 }

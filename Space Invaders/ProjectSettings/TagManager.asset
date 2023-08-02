@@ -8,6 +8,9 @@ TagManager:
   - Bullet
   - Enemy
   - EnemyBullet
+  - Limit
+  - Asteroid
+  - PowerUp
   layers:
   - Default
   - TransparentFX
