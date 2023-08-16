@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
         }
 
         UpdateCharacter(selectedOption);
+
+        StartCoroutine(CheckBoolEverySecond());
     }
 
     void Update()
@@ -96,16 +98,6 @@ public class PlayerController : MonoBehaviour
     
     IEnumerator shootDelay()
     {
-        /*
-        if (isLimited == true)
-        {
-            canShoot = false;
-            yield return new WaitForSeconds(5f);
-            canShoot = true;
-            isLimited = false;
-        }
-        */
-
         if (isLimited == false)
         {
             yield return new WaitForSeconds(0.5f);
@@ -126,13 +118,27 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(5f);
             canShoot = true;
             isLimited = false;
-        }
-        
+        }   
     }
 
-    IEnumerator WaitForOver()
+    private IEnumerator CheckBoolEverySecond()
     {
-        yield return new WaitForSeconds(2);
+        while (true)
+        {
+            // Check the bool variable here
+            if (isAsteroid == true)
+            {
+                Debug.Log("power spawn");
+                enemySpawner.StopContinuousSpawn();
+            }
+            if (isAsteroid == false)
+            {
+                Debug.Log("normal spawn");
+            }
+
+            // Wait for one second before checking again
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -141,7 +147,6 @@ public class PlayerController : MonoBehaviour
         {
             audioManager.playExpSpaceShip();
             Destroy(gameObject);
-            WaitForOver();
             audioManager.playGameOver();
             gameOverScreen.gameOverScreen();
         }
@@ -154,8 +159,11 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("Asteroid"))
         {
+            Debug.Log("it's working");
             isAsteroid = true;
+            enemySpawner.canSpawn = false;
             Destroy(collision.gameObject);
+            enemySpawner.StartMethod();
         }
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6020204729759769013}
   - component: {fileID: 5926304017992583887}
   - component: {fileID: 969477304984167376}
-  - component: {fileID: 8438097152963320653}
+  - component: {fileID: 3736967454037578870}
   m_Layer: 0
   m_Name: asteroidpower
   m_TagString: Enemy
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4897654118201388115}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.3, y: 0.57, z: 0}
-  m_LocalScale: {x: 0.60225, y: 0.60225, z: 0.60225}
+  m_LocalScale: {x: 0.67674834, y: 0.67674834, z: 0.67674834}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -149,7 +149,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8438097152963320653
+--- !u!114 &3736967454037578870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,8 +158,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4897654118201388115}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8019dc8366dfebb49b002614f538e961, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a81f85366bef624a9393670a10aa26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
-  explosionParticle: {fileID: 74078499623404260, guid: 9790383d97594f049aecba8cf470e3b7, type: 3}
+  speed: 26
+  explosionParticle: {fileID: 6146545414153545492, guid: 61753401622c2a947a30e2147430e97d, type: 3}

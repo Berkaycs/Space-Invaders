@@ -7,9 +7,10 @@ public class EnemySpawner : MonoBehaviour
     private float yPos = 4;
     public float spawnDelay = 2;
     public float spawnRate = 2;
-    private float spawnDelayPower = 5;
-    private float spawnRatePower = 12;
-    private bool canSpawn = true;
+    public float spawnDelayPower = 5;
+    public float spawnRatePower = 12;
+    private float invokecount = 0;
+    public bool canSpawn = true;
 
     public GameObject[] asteroids;
     public GameObject[] enemies;
@@ -17,12 +18,12 @@ public class EnemySpawner : MonoBehaviour
     public GameObject[] asteroidPower;
 
 
-    private PlayerController playerController;
+    public PlayerController playerController;
 
     public void Start()
     {
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        SpawnAllMethod();
+        StartContinuousSpawn();
+        CheckBoolEverySecond();
     }
     public void SpawnEnemy()
     {
@@ -43,7 +44,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    void SpawnPowerUp()
+    public void SpawnPowerUp()
     {
         float spawnPosY = Random.Range(-yPos, yPos);
         Vector2 spawnPos = transform.position;
@@ -52,64 +53,120 @@ public class EnemySpawner : MonoBehaviour
         Instantiate(powerups[Random.Range(0, powerups.Length)], spawnPos, Quaternion.identity);
     }
 
-    void SpawnAsteroidPower()
+    public void StartMethod()
     {
+        InvokeRepeating("StartAsteroidAttack", 0, 0.5f);      
+    }
+
+    public void StartAsteroidAttack()
+    {
+        Debug.Log("Asteroid attack should be started");
         float spawnPosY = Random.Range(-yPos, yPos);
         Vector2 spawnPos = transform.position;
         spawnPos.y = spawnPosY;
+        invokecount++;
 
         Instantiate(asteroidPower[0], spawnPos, Quaternion.identity);
-    }
 
-    void SpawnAllMethod()
-    {
-        while (true)
+        if (invokecount > 10)
         {
-            if (canSpawn == true)
-            {
-                Debug.Log("Normal spawn");
-                InvokeRepeating("SpawnEnemy", spawnDelay, spawnRate);
-                InvokeRepeating("SpawnPowerUp", spawnDelayPower, spawnRatePower);
-            }
-
-            if (playerController.isAsteroid == true)
-            {
-                canSpawn = false;
-                Debug.Log("power spawn");
-                for (int i = 0; i < 15; i++)
-                {
-                    InvokeRepeating("SpawnAsteroidPower", 1, 0.3f);
-                }
-                canSpawn = true;
-            }
+            invokecount = 0;
+            StopAsteroidAttack();
+            canSpawn = true;
+            StartContinuousSpawn();
         }
+
+        //StartCoroutine(AsteroidAttackRate());
     }
 
     /*
+    void SpawnAllMethod()
+    {
+        if (canSpawn == true)
+        {
+            Debug.Log("canSpawn = true");
+            InvokeRepeating("SpawnEnemy", spawnDelay, spawnRate);
+            InvokeRepeating("SpawnPowerUp", spawnDelayPower, spawnRatePower);
+        }
+
+        if (canSpawn == false) 
+        {
+            Debug.Log("Asteroid Attack should be start");
+            StartAsteroidAttack();
+        }
+    }
+    */
+
+    public void StartContinuousSpawn()
+    {
+        if (canSpawn == true)
+        {
+            Debug.Log("Continuous Spawn is actived");
+            InvokeRepeating("SpawnEnemy", 2, 1.5f);
+            InvokeRepeating("SpawnPowerUp", 2, 12);
+        }
+    }
+
+    public void StopContinuousSpawn()
+    {
+        Debug.Log("Continuous Spawn is deactived");
+        CancelInvoke("SpawnEnemy");
+        CancelInvoke("SpawnPowerUp");
+    }
+
+    public void StopAsteroidAttack()
+    {
+        Debug.Log("Asteroid attack ended");
+        CancelInvoke("StartAsteroidAttack");
+        playerController.isAsteroid = false;
+    }
+
+    IEnumerator AsteroidAttackRate()
+    {
+        yield return new WaitForSeconds(0.5f);
+    }
+
     private IEnumerator CheckBoolEverySecond()
     {
         while (true)
         {
             // Check the bool variable here
-            if (playerController.isAsteroid == true)
+            if (canSpawn == true)
             {
-                canSpawn = false;
-                Debug.Log("power spawn");
-                for (int i = 0; i < 15; i++)
-                {
-                    InvokeRepeating("SpawnAsteroidPower", 1, 0.3f);
-                }
-                canSpawn = true;
+                Debug.Log("canSpawn = true");
             }
-            if (playerController.isAsteroid == false)
+            if (canSpawn == false)
             {
-                Debug.Log("The bool variable is false!");
+                Debug.Log("canSpawn = false");
             }
 
             // Wait for one second before checking again
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    /*
+    void SpawnAllMethod()
+    {
+        if (canSpawn)
+        {
+            Debug.Log("SpawnAllMethod is being called.");
+
+            InvokeRepeating("SpawnEnemy", spawnDelay, spawnRate);
+            InvokeRepeating("SpawnPowerUp", spawnDelayPower, spawnRatePower);
+        }
+
+        // Check for asteroid condition
+        if (playerController.isAsteroid)
+        {
+           Debug.Log("Asteroid attack is active");
+           StopContinuousSpawn();
+
+           InvokeRepeating("SpawnAsteroidPower", 0, 0.5f);
+
+           // Optionally, cancel asteroid-related spawning after a duration
+           Invoke("StopAsteroidAttack", 6);            
         }
     }
     */
-
 }
