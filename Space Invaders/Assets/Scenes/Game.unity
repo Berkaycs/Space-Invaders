@@ -798,7 +798,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.46215433}
+  m_Offset: {x: 0, y: 0.53264743}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -809,7 +809,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.12, y: 4.195691}
+  m_Size: {x: 5.12, y: 4.336676}
   m_EdgeRadius: 0
 --- !u!212 &379953967
 SpriteRenderer:
@@ -2007,6 +2007,8 @@ MonoBehaviour:
   pools:
   - objectPrefab: {fileID: 8401783484066996533, guid: aec382c301764b14883038df44e63258, type: 3}
     poolSize: 20
+  - objectPrefab: {fileID: 8593657943743285848, guid: fcac4f080b415cf499f6d15312bd5c50, type: 3}
+    poolSize: 10
 --- !u!4 &1551876325
 Transform:
   m_ObjectHideFlags: 0

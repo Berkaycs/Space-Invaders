@@ -30,9 +30,12 @@ public class Bullet : MonoBehaviour
 
     void Move()
     {
+        /*
         Vector2 temp = transform.position;
         temp.x += speed * Time.deltaTime;
         transform.position = temp;
+        */
+        transform.Translate(Vector2.right * speed * Time.deltaTime, Space.Self);
     }
 
     void Reuse()
@@ -42,6 +45,7 @@ public class Bullet : MonoBehaviour
             if (playerController.Bullets.Count == 0) return;
             playerController.Bullets.Dequeue();
             bulletPool.SetPoolObject(gameObject, 0);
+            Debug.Log("The bullet has return to pool");
         }
     }
 

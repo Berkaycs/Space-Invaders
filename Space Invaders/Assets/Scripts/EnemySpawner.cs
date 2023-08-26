@@ -75,27 +75,8 @@ public class EnemySpawner : MonoBehaviour
             canSpawn = true;
             StartContinuousSpawn();
         }
-
-        //StartCoroutine(AsteroidAttackRate());
     }
 
-    /*
-    void SpawnAllMethod()
-    {
-        if (canSpawn == true)
-        {
-            Debug.Log("canSpawn = true");
-            InvokeRepeating("SpawnEnemy", spawnDelay, spawnRate);
-            InvokeRepeating("SpawnPowerUp", spawnDelayPower, spawnRatePower);
-        }
-
-        if (canSpawn == false) 
-        {
-            Debug.Log("Asteroid Attack should be start");
-            StartAsteroidAttack();
-        }
-    }
-    */
 
     public void StartContinuousSpawn()
     {
@@ -121,11 +102,6 @@ public class EnemySpawner : MonoBehaviour
         playerController.isAsteroid = false;
     }
 
-    IEnumerator AsteroidAttackRate()
-    {
-        yield return new WaitForSeconds(0.5f);
-    }
-
     private IEnumerator CheckBoolEverySecond()
     {
         while (true)
@@ -144,29 +120,4 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
-
-    /*
-    void SpawnAllMethod()
-    {
-        if (canSpawn)
-        {
-            Debug.Log("SpawnAllMethod is being called.");
-
-            InvokeRepeating("SpawnEnemy", spawnDelay, spawnRate);
-            InvokeRepeating("SpawnPowerUp", spawnDelayPower, spawnRatePower);
-        }
-
-        // Check for asteroid condition
-        if (playerController.isAsteroid)
-        {
-           Debug.Log("Asteroid attack is active");
-           StopContinuousSpawn();
-
-           InvokeRepeating("SpawnAsteroidPower", 0, 0.5f);
-
-           // Optionally, cancel asteroid-related spawning after a duration
-           Invoke("StopAsteroidAttack", 6);            
-        }
-    }
-    */
 }

@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private BulletPool bulletPool;
     private GameObject bullet;
+    public GameObject multishotPrefab;
     public Queue<GameObject> Bullets = new Queue<GameObject>();
 
     private void Start()
@@ -85,14 +86,28 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        if (Input.GetMouseButtonDown(0) && canShoot == true)
+        if (Input.GetMouseButtonDown(0))
         {
-            audioManager.playBulletPlayer();
-            bullet = bulletPool.GetPoolObject(0);
-            bullet.transform.position = attackPoint.transform.position;
-            Bullets.Enqueue(bullet);
-            canShoot = false;
-            StartCoroutine(shootDelay());
+            if (canShoot == true && isPowerUp == false)
+            {
+                Debug.Log("You can shoot regularly");
+                audioManager.playBulletPlayer();
+                bullet = bulletPool.GetPoolObject(0);
+                bullet.transform.position = attackPoint.transform.position;
+                Bullets.Enqueue(bullet);
+                canShoot = false;
+                StartCoroutine(shootDelay());
+            }
+
+            if (canShoot == true && isPowerUp == true)
+            {
+                Debug.Log("You can multishot");
+                audioManager.playBulletPlayer();
+                Instantiate(multishotPrefab, attackPoint.transform.position, multishotPrefab.transform.rotation);               
+                canShoot = false;
+                StartCoroutine(shootDelay());
+                StartCoroutine(PowerUp());
+            }
         }
     }
     
@@ -136,9 +151,21 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("normal spawn");
             }
 
+            if (isPowerUp == true)
+            {
+                Shoot();
+            }
+
             // Wait for one second before checking again
             yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    private IEnumerator PowerUp()
+    {
+        yield return new WaitForSeconds(10);
+        isPowerUp = false;
+        Debug.Log("Multishot is deactivated");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -153,17 +180,25 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("Limit"))
         {
+            Debug.Log("You can't shoot");
             isLimited = true;
             Destroy(collision.gameObject);
         }
 
         if (collision.CompareTag("Asteroid"))
         {
-            Debug.Log("it's working");
+            Debug.Log("Here comes asteroid!");
             isAsteroid = true;
             enemySpawner.canSpawn = false;
             Destroy(collision.gameObject);
             enemySpawner.StartMethod();
+        }
+
+        if (collision.CompareTag("PowerUp"))
+        {
+            Debug.Log("You get the multishoot power-up");
+            Destroy(collision.gameObject);
+            isPowerUp = true;
         }
     }
 }
