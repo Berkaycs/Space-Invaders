@@ -200,5 +200,13 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
             isPowerUp = true;
         }
+
+        if (collision.CompareTag("AsteroidAttack"))
+        {
+            audioManager.playExpSpaceShip();
+            Destroy(gameObject);
+            audioManager.playGameOver();
+            gameOverScreen.gameOverScreen();
+        }
     }
 }

@@ -739,6 +739,7 @@ MonoBehaviour:
   artworkSprite: {fileID: 379953967}
   isAsteroid: 0
   isPowerUp: 0
+  multishotPrefab: {fileID: 8593657943743285848, guid: fcac4f080b415cf499f6d15312bd5c50, type: 3}
 --- !u!50 &379953965
 Rigidbody2D:
   serializedVersion: 4
@@ -2007,8 +2008,6 @@ MonoBehaviour:
   pools:
   - objectPrefab: {fileID: 8401783484066996533, guid: aec382c301764b14883038df44e63258, type: 3}
     poolSize: 20
-  - objectPrefab: {fileID: 8593657943743285848, guid: fcac4f080b415cf499f6d15312bd5c50, type: 3}
-    poolSize: 10
 --- !u!4 &1551876325
 Transform:
   m_ObjectHideFlags: 0

@@ -8,6 +8,8 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField]
     private float speed = 100;
+    [SerializeField]
+    private int inputID;
 
     private BulletPool bulletPool;
     private GameManager gameManager;
@@ -40,12 +42,17 @@ public class Bullet : MonoBehaviour
 
     void Reuse()
     {
-        if (transform.position.x > 14)
+        if (inputID == 1 && transform.position.x > 14)
         {
             if (playerController.Bullets.Count == 0) return;
             playerController.Bullets.Dequeue();
             bulletPool.SetPoolObject(gameObject, 0);
             Debug.Log("The bullet has return to pool");
+        }
+
+        if (inputID == 2 && transform.position.x > 14)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -62,6 +69,13 @@ public class Bullet : MonoBehaviour
         {
             gameObject.SetActive(false);
             Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("AsteroidAttack"))
+        {
+            gameObject.SetActive(false);
+            Destroy(collision.gameObject);
+            gameManager.InceraseScore(5);
         }
     }
 }
