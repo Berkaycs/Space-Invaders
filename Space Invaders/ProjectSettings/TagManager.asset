@@ -11,6 +11,7 @@ TagManager:
   - Limit
   - Asteroid
   - PowerUp
+  - AsteroidAttack
   layers:
   - Default
   - TransparentFX
